@@ -19,8 +19,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SPECTRUM_HH
-#define SPECTRUM_HH
+#ifndef SPECTRUM_H
+#define SPECTRUM_H
 
 #include "point.h"
 
@@ -39,5 +39,5 @@ public:
                                  const int npoints);
 };
 
-#endif  // SPECTRUM_HH
+#endif  // SPECTRUM_H
 

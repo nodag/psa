@@ -19,10 +19,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef POINT_HH
-#define POINT_HH
+#ifndef POINT_H
+#define POINT_H
 
 #include "curve.h"
+#include <algorithm>
 #include <cmath>
 #include <iostream>
 #include <string>
@@ -101,8 +102,8 @@ struct Point
         for (int i = 0; i < 2; ++i) {
             std::string s;
             is >> s;
-            replace(s.begin(), s.end(), '(', ' ');
-            replace(s.begin(), s.end(), ')', ' ');
+            std::replace(s.begin(), s.end(), '(', ' ');
+            std::replace(s.begin(), s.end(), ')', ' ');
             std::stringstream ss;
             ss << s;
             ss >> p.e[i];
@@ -154,5 +155,5 @@ public:
     void SaveEPS(const std::string &fname);
 };
 
-#endif    // POINT_HH
+#endif    // POINT_H
 

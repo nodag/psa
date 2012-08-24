@@ -19,22 +19,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef UTIL_HH
-#define UTIL_HH
+#ifndef UTIL_H
+#define UTIL_H
 
 #include <algorithm>
 #include <cassert>
 #include <cmath>
 #include <cfloat>
 #include <string>
+#include <vector>
 
-#ifdef WIN32
+#if defined(_WIN32) || defined(_WIN64) || defined(_MSC_VER)
+#define snprintf _snprintf
+#define NOMINMAX
 #include <windows.h>
 #else
 #include <sys/ioctl.h>
 #include <unistd.h>
 #include <errno.h>
-#endif // !WIN32
+#endif
 
 #define PI_2    1.57079632679489661923f
 #define PI      3.14159265358979323846f
@@ -66,15 +69,9 @@ inline float Decibel(float f) {
     return 10.0f * log10f(f);
 }
 
-inline float Nearbyint0f(float f) {
-    float r = nearbyintf(f);
-    return (r == 0.f && std::signbit(r)) ? 0.f : r;
-}
-
-template <typename T>
-void SetZero(T *array, size_t size) {
-    for (size_t i = 0; i < size; ++i)
-        array[i] = 0;
+inline float Round0f(float f) {
+    float r = (f > 0.f) ? floorf(f) : ceilf(f);
+    return (r == -0.f) ? 0.f : r;
 }
 
 
@@ -92,7 +89,7 @@ inline std::string BaseName(std::string &fname, bool strip_suffix = false)
 }
 
 inline int TerminalWidth() {
-#ifdef WIN32
+#if defined(_WIN32) || defined(_WIN64) || defined(_MSC_VER)
     HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
     if (h == INVALID_HANDLE_VALUE || h == NULL) {
         fprintf(stderr, "GetStdHandle() call failed");
@@ -108,30 +105,30 @@ inline int TerminalWidth() {
         return 80;
     }
     return w.ws_col;
-#endif // WIN32
+#endif
 }
 
 inline void PrintProgress(const std::string &label, float fract)
 {
     const int maxbarlen = TerminalWidth() - 28;
-    const int maxplusses = std::max(2ul, maxbarlen - label.size());
+    const int maxplusses = std::max(2, maxbarlen - (int)label.size());
     const int curplusses = fract * maxplusses;
     
     const int buflen = label.size() + maxplusses + 64;
-    char buf[buflen];
-	snprintf(buf, buflen, "\r%s [", label.c_str());
-    char *c = buf + strlen(buf);
-	for (int i = 0; i < curplusses; ++i)
+    std::vector<char> buf(buflen);
+    snprintf(&buf[0], buflen, "\r%s [", label.c_str());
+    char *c = &buf[0] + strlen(&buf[0]);
+    for (int i = 0; i < curplusses; ++i)
         *c++ = '+';
     for (int i = curplusses; i < maxplusses; ++i)
         *c++ = ' ';
     *c = '\0';
-    snprintf(c, buflen - strlen(buf), "] %.1f%% done", fract * 100.f);
+    snprintf(c, buflen - strlen(&buf[0]), "] %.1f%% done", fract * 100.f);
     
-    fputs(buf, stdout);
-	fflush(stdout);
+    fputs(&buf[0], stdout);
+    fflush(stdout);
 }
 
 
-#endif  // UTIL_HH
+#endif  // UTIL_H
 

@@ -19,8 +19,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PARAM_HH
-#define PARAM_HH
+#ifndef PARAM_H
+#define PARAM_H
 
 #include <string>
 #include <vector>
@@ -55,4 +55,4 @@ private:
     Param *Insert(const std::string &key);
 };
 
-#endif  // PARAM_HH
+#endif  // PARAM_H

@@ -19,8 +19,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef STATISTICS_HH
-#define STATISTICS_HH
+#ifndef STATISTICS_H
+#define STATISTICS_H
 
 #include "curve.h"
 #include "point.h"
@@ -51,5 +51,5 @@ void SpatialStatistics(const PointSet &points, int npoints, Statistics *stats);
 void SpectralStatistics(const PointSet &points, int npoints, Statistics *stats);
 void SpectralStatistics(std::vector<PointSet> &sets, int npoints, Statistics *stats);
 
-#endif // STATISTICS_HH
+#endif // STATISTICS_H
 

@@ -19,8 +19,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CURVE_HH
-#define CURVE_HH
+#ifndef CURVE_H
+#define CURVE_H
 
 #include <string>
 #include <vector>
@@ -53,4 +53,4 @@ public:
                  float yrange[2], float refLvl, float xscale);
 };
 
-#endif  // CURVE_HH
+#endif  // CURVE_H

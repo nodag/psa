@@ -19,8 +19,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef RESULT_HH
-#define RESULT_HH
+#ifndef RESULT_H
+#define RESULT_H
 
 #include "config.h"
 #include "curve.h"
@@ -44,5 +44,5 @@ void SaveSummary(const std::string &fname, Result &result, Config &config);
 void WriteResult(const std::string &base, Result &result, Config &config,
                  ParamList &params);
 
-#endif // RESULT_HH
+#endif // RESULT_H
 

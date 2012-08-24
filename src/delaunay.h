@@ -19,8 +19,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DELAUNAY_HH
-#define DELAUNAY_HH
+#ifndef DELAUNAY_H
+#define DELAUNAY_H
 
 #include <vector>
 #include "statistics.h"
@@ -68,5 +68,5 @@ public:
     void Save(const char *fname, bool points = true, bool debug = false) const;
 };
 
-#endif  // DELAUNAY_HH
+#endif  // DELAUNAY_H
 

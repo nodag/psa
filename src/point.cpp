@@ -24,6 +24,7 @@
 #include "util.h"
 #include <algorithm>
 #include <fstream>
+#include <stdint.h>
 
 
 enum Endianness {

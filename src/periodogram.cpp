@@ -70,8 +70,7 @@ void Periodogram::Anisotropy(Curve *ani) const {
     this->RadialPower(&rp);
     // Now determine anisotropy curve
     const int size2 = size / 2;
-    int Nr[ani->size()];
-    SetZero(Nr, ani->size());
+    std::vector<unsigned long> Nr(ani->size());
     ani->SetZero();
     // Measure variance within each ring
     for (int x = 0; x < size; ++x) {
@@ -98,8 +97,7 @@ void Periodogram::Anisotropy(Curve *ani) const {
 
 void Periodogram::RadialPower(Curve *rp) const {
     const int size2 = size / 2;
-    int Nr[rp->size()];
-    SetZero(Nr, rp->size());
+    std::vector<unsigned long> Nr(rp->size());
     rp->SetZero();
     // Add each power component to the corresponding ring
     for (int x = 0; x < size; ++x) {

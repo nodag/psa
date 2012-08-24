@@ -19,8 +19,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PERIODOGRAM_HH
-#define PERIODOGRAM_HH
+#ifndef PERIODOGRAM_H
+#define PERIODOGRAM_H
 
 #include "curve.h"
 #include "image.h"
@@ -45,5 +45,5 @@ public:
     void ToImage(Image *img) const;
 };
 
-#endif  // PERIODOGRAM_HH
+#endif  // PERIODOGRAM_H
 

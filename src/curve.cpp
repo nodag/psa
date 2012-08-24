@@ -147,15 +147,15 @@ void Curve::SaveTEX(const std::string &fname, std::string labels[2],
     }
     fprintf(fp, ";\n");
     fprintf(fp, "  \\end{scope}\n");
-    fprintf(fp, "  \\foreach \\x in {%.f", Nearbyint0f(x0 * xscale));
+    fprintf(fp, "  \\foreach \\x in {%.f", Round0f(x0 * xscale));
     for (int i = 1; i <= xsteps; ++i)
-        fprintf(fp, ",%.1f", Nearbyint0f(x1 * xscale) * i * xstep);
+        fprintf(fp, ",%.1f", Round0f(x1 * xscale) * i * xstep);
     fprintf(fp, "}\n");
     fprintf(fp, "    \\draw (\\x cm,%f) -- (\\x cm,%f) node[below] {\\x};\n",
             yrange[0] + (yrange[1] - yrange[0]) * ticklen, yrange[0]);
-    fprintf(fp, "  \\foreach \\y in {%.f", Nearbyint0f(yrange[0]));
+    fprintf(fp, "  \\foreach \\y in {%.f", Round0f(yrange[0]));
     for (int i = 1; i <= ysteps; ++i)
-        fprintf(fp, ",%.f", Nearbyint0f(yrange[0]) + (Nearbyint0f(yrange[1]) - Nearbyint0f(yrange[0])) * i * ystep);
+        fprintf(fp, ",%.f", Round0f(yrange[0]) + (Round0f(yrange[1]) - Round0f(yrange[0])) * i * ystep);
     fprintf(fp, "}\n");
     fprintf(fp, "    \\draw (%f,\\y cm) -- (%f,\\y cm) node[left] {\\y};\n",
             x0 * xscale + ((x1 - x0) * xscale) * ticklen / ratio, x0 * xscale);

@@ -19,8 +19,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONFIG_HH
-#define CONFIG_HH
+#ifndef CONFIG_H
+#define CONFIG_H
 
 #include <string>
 
@@ -38,5 +38,5 @@ struct Config {
 
 Config LoadConfig(const std::string &fname);
 
-#endif  // UTIL_HH
+#endif  // UTIL_H
 

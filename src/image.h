@@ -19,8 +19,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IMAGE_HH
-#define IMAGE_HH
+#ifndef IMAGE_H
+#define IMAGE_H
 
 #include <string>
 
@@ -48,5 +48,5 @@ public:
     void Save(const std::string &fname, bool flipped = true);
 };
 
-#endif  // IMAGE_HH
+#endif  // IMAGE_H
 

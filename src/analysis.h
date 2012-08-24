@@ -19,8 +19,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef ANALYSIS_HH
-#define ANALYSIS_HH
+#ifndef ANALYSIS_H
+#define ANALYSIS_H
 
 #include "config.h"
 #include "param.h"
@@ -31,5 +31,5 @@ void Analysis(std::vector<std::string> &files,
 void AnalysisAverage(std::vector<std::string> &files,
                      ParamList &params, Config &config);
 
-#endif  // ANALYSIS_HH
+#endif  // ANALYSIS_H
 
