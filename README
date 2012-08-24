@@ -1,0 +1,128 @@
+                        psa - Point Set Analysis
+
+A tool for the analysis of two-dimensional point sets with applications in
+graphics.
+
+                                 Overview
+
+psa is a command line tool that takes two-dimensional point sets as input
+and analyzes these point sets with respect to several spatial and spectral
+statistics important for sampling problems in computer graphics. These 
+statistics include:
+
+- Global minimum distance (smallest separation between any two points)
+- Average minimum distance (average nearest-neighbour distance)
+- Bond-orientational order (similarity to the hexagonal lattice)
+- Effective Nyquist frequency (equivalent to Nyq. freq. in uniform sampling)
+- Oscillations (metric for potential aliasing caused by the point set)
+
+- Radial power spectrum
+- Radial distribution function
+- Anisotropy
+- Fourier amplitude/power spectrum
+
+For more information regarding these measures, consult our papers:
+
+  Daniel Heck, Thomas Schl\"omer, Oliver Deussen:
+  Aliasing-Free Blue Noise Sampling.
+  Technical Report, University of Konstanz, August 2012.
+
+  Thomas Schl\"omer, Oliver Deussen:
+  Accurate Spectral Analysis of Two-Dimensional Point Sets.
+  Journal of Graphics, GPU, and Game Tools, 15:3, 152-160, 2011.
+
+The latest version of psa can always be found at http://psa.googlecode.com.
+Any suggestions regarding the concepts or the implementation of psa are very
+welcome. Feel free to contact us:
+  thomas.schloemer@uni-konstanz.de, daniel.heck@uni-konstanz.de.
+
+
+                               Dependencies
+
+- cairo (http://www.cairographics.org) for PDF and PNG output
+- CGAL (http://www.cgal.org) for the bond-orientational order
+
+The CGAL dependency is not strict and can be removed by setting HAVE_CGAL to 0
+in the accompanying Makefile. The computation of the bond-orientational order
+is then omitted. psa also makes use of OpenMP if available.
+
+
+                                   Usage
+
+Type
+  ./psa filename [options]
+to analyze the given file(s). When called without any parameters, psa
+generates a single PDF containing all measures. Use --avg if you want to
+average all measures over the given files, e.g.
+  ./psa --avg points/mypoints*.txt
+Type
+  ./psa --help
+for a list of available options.
+
+
+                                File Formats
+
+Point set files are supported in three flavours:
+
+- TXT: plain text files with a pair of coordinates for each point
+- RPS: raw single-precision floating point data
+- EPS: coordinate pairs for each point with a basic EPS header that is
+       understood by most EPS viewers
+
+An example for each format is included in /points. Use --convert to convert
+files between the three formats. Note that psa cannot read arbitrary EPS
+files.
+
+
+                       License and Acknowledgements
+
+psa is free software and published under the GNU GPL. For further information
+see the file COPYING. This software has been partially funded by DFG, German
+Research Foundation, and the PhD Program 'Explorative Analysis and
+Visualization of Large Information Spaces'.
+
+Copyright (C) 2011 and 2012
+  Thomas Schl\"omer (thomas.schloemer@uni-konstanz.de)
+  Daniel Heck (daniel.heck@uni-konstanz.de)
+
+
+                              Version History
+v1.0
+- psa has been totally rewritten
+- Added new statistics: effective Nyquist frequency, oscillations metric, and
+  orientational order (the latter needs CGAL)
+- Added new 1D measure next to radial power spectrum and anisotropy: radial
+  distribution function
+- Added option --raw to write the raw data of all 1D measures for better
+  post-processing using external tools
+- 1D measures are now written as TEX source files based on the TIKZ package
+  for cleaner integration into larger documents and potential final touches
+- Added options to generate every measure separately
+- Added configuration file 'config/psa.cfg' for most important variables
+- Can now directly read points from certain EPS files next to TXT and RPS
+- Added option --convert to convert points between these formats
+- Dropped need for fftw-library
+- Dropped computation of star discrepancy
+
+v0.2.2
+- Added average mindist measure
+- Removed non-toroidal distance measure
+- Normalized radius is now called normalized mindist
+- Changed default plot colors to black
+- Improved code readability
+
+v0.2.1
+- Bug fixes with respect to cairo version >1.10.0
+- Fixed some MS VS compilation issues
+
+v0.2
+- Integrated an optional DFT using the fftw-library
+- Non-spectral measurements are now also rendered into summary files
+- Added non-toroidal minimum distance computation
+- Support for more arbitrarily many point sets in a single directory
+- Bug fixes
+
+v0.1
+- Initial release
+
+
