@@ -6,7 +6,7 @@ LIB := -L/usr/local/lib
 LIB += -L/usr/local/Cellar/cairo/1.12.2/lib
 
 # set HAVE_CGAL to 0 to build without CGAL support; psa will then omit
-# the computation of the orientational order
+# the computation of the bond-orientational order (BOO)
 HAVE_CGAL := 1
 #########################################################################
 
@@ -24,10 +24,7 @@ endif
 
 OBJDIR := obj
 SRCDIR := src
-CXXFILES := main.cpp analysis.cpp config.cpp curve.cpp image.cpp param.cpp periodogram.cpp point.cpp result.cpp spectrum.cpp statistics.cpp
-ifeq ($(HAVE_CGAL),1)
-	CXXFILES += delaunay.cpp
-endif
+CXXFILES := main.cpp analysis.cpp config.cpp curve.cpp delaunay.cpp image.cpp param.cpp periodogram.cpp point.cpp result.cpp spectrum.cpp statistics.cpp
 
 OBJS   := $(patsubst %.cpp,$(OBJDIR)/%.cpp.o,$(notdir $(CXXFILES)))
 TARGET := psa

@@ -19,6 +19,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifdef PSA_HAS_CGAL
+
 #include "delaunay.h"
 #include <complex>
 #include <fstream>
@@ -194,3 +196,4 @@ void Delaunay::Save(const char *fname, bool points, bool debug) const {
     os.close();
 }
 
+#endif  // PSA_HAS_CGAL

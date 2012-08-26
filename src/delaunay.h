@@ -19,6 +19,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifdef PSA_HAS_CGAL
+
 #ifndef DELAUNAY_H
 #define DELAUNAY_H
 
@@ -70,3 +72,4 @@ public:
 
 #endif  // DELAUNAY_H
 
+#endif  // PSA_HAS_CGAL

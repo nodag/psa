@@ -34,7 +34,12 @@ void Usage() {
         "  --summary         single PDF with most measures (default)\n"
         "  --avg             average the measures over all given files\n"
         "Statistics\n"
-        "  --spatial         Global mindist, average mindist, orientational order\n"
+        "  --spatial         Global mindist, average mindist"
+#ifdef PSA_HAS_CGAL
+        ", orientational order\n"
+#else
+        "\n"
+#endif
         "  --spectral        Effective Nyquist frequency, Oscillations metric\n"
         "  --stats           All of the above\n"
         "1D Measures\n"
