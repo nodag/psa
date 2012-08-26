@@ -39,12 +39,44 @@
 #include <errno.h>
 #endif
 
-#define PI_2    1.57079632679489661923f
-#define PI      3.14159265358979323846f
-#define TWOPI   6.28318548202514648437f
-#define SQRT1_2 0.70710678118654752440f
-#define SQRT2   1.41421356237309504880f
-#define SQRT3   1.73205080756887729352f
+#define PI_4    0.7853981633974483096f
+#define PI_2    1.5707963267948966192f
+#define PI      3.1415926535897932384f
+#define TWOPI   6.2831854820251464843f
+#define SQRT1_2 0.7071067811865475244f
+#define SQRT2   1.4142135623730950488f
+#define SQRT3   1.7320508075688772935f
+#define DR1     5.7831859629467845211f
+
+
+// Precomputed arrays for Bessel function computation
+static const float JP[5] = {
+    -6.068350350393235E-008f,
+    6.388945720783375E-006f,
+    -3.969646342510940E-004f,
+    1.332913422519003E-002f,
+    -1.729150680240724E-001f
+};
+static const float MO[8] = {
+    -6.838999669318810E-002f,
+    1.864949361379502E-001f,
+    -2.145007480346739E-001f,
+    1.197549369473540E-001f,
+    -3.560281861530129E-003f,
+    -4.969382655296620E-002f,
+    -3.355424622293709E-006f,
+    7.978845717621440E-001f
+};
+static const float PH[8] = {
+    3.242077816988247E+001f,
+    -3.630592630518434E+001f,
+    1.756221482109099E+001f,
+    -4.974978466280903E+000f,
+    1.001973420681837E+000f,
+    -1.939906941791308E-001f,
+    6.490598792654666E-002f,
+    -1.249992184872738E-001f
+};
 
 
 // Math utility functions
@@ -72,6 +104,31 @@ inline float Decibel(float f) {
 inline float Round0f(float f) {
     float r = (f > 0.f) ? floorf(f) : ceilf(f);
     return (r == -0.f) ? 0.f : r;
+}
+
+inline float Polynomial(float x, const float *p, int n) {
+    float y = p[0];
+    for (int i = 1; i < n; ++i)
+        y = y * x + p[i];
+    return y;
+}
+
+// Single precision approximation to j0, about twice as fast as the standard
+// implementation. From cephes lib, available at http://www.netlib.org/cephes/
+inline float j0f(float f) {
+    float x = fabsf(f);
+    if (x <= 2.f) {
+        float z = x*x;
+        if (x < 1.0e-3f)
+            return (1.f - 0.25f*z);
+        return (z - DR1) * Polynomial(z, JP, 5);
+	}
+    float q = 1.f / x;
+    float w = sqrtf(q);
+    float p = w * Polynomial(q, MO, 8);
+    w = q*q;
+    float xn = q * Polynomial(w, PH, 8) - PI_4;
+    return p * cosf(xn + x);
 }
 
 

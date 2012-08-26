@@ -94,15 +94,16 @@ static inline float BlackmanWindow(float x, float xlim) {
 }
 
 static void RDFtoRP(const Curve &rdf, int npoints, Curve *rp) {
+    const float wstep = 1.f / sqrtf(npoints);
     Curve tmp(rdf);
     for (int i = 0; i < rp->size(); ++i) {
         const float u0 = rp->ToX(i);
         const float u = TWOPI * u0;
-        const float wndsize = rdf.x1 * std::min(0.5f, std::max(0.2f, 4.f * u0 / sqrtf(npoints)));
+        const float wndsize = rdf.x1 * std::min(0.5f, std::max(0.2f, 4.f * u0 * wstep));
         for (int j = 0; j < tmp.size(); ++j) {
             float x = rdf.ToX(j);
             float wnd = BlackmanWindow(x, wndsize);
-            tmp[j] = (rdf[j] - 1) * jn(0, u*x) * x * wnd;
+            tmp[j] = (rdf[j] - 1) * j0f(u*x) * x * wnd;
         }
         (*rp)[i] = fabsf(1.f + TWOPI * Integrate(tmp) * npoints);
     }
