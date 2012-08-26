@@ -122,12 +122,10 @@ inline float j0f(float f) {
         if (x < 1.0e-3f)
             return (1.f - 0.25f*z);
         return (z - DR1) * Polynomial(z, JP, 5);
-	}
+    }
     float q = 1.f / x;
-    float w = sqrtf(q);
-    float p = w * Polynomial(q, MO, 8);
-    w = q*q;
-    float xn = q * Polynomial(w, PH, 8) - PI_4;
+    float p = sqrtf(q) * Polynomial(q, MO, 8);
+    float xn = q * Polynomial(q*q, PH, 8) - PI_4;
     return p * cosf(xn + x);
 }
 
