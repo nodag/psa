@@ -87,13 +87,14 @@ static bool HasSuffix(const std::string &s, const std::string &suffix) {
 void PointSet::RDF(Curve *rdf) const
 {
     const int npoints = this->size();
-    std::vector<unsigned long> bins(rdf->size());
+    std::vector<unsigned long> bins(rdf->size(), 0);
     
     for (int i = 0; i < npoints; ++i) {
         for (int j = i + 1; j < npoints; ++j) {
             float dist = points[i].DistUnitTorus(points[j]);
-            if (dist < rdf->x1)
-                bins[rdf->ToIndex(dist)]++;
+            int idx = rdf->ToIndex(dist);
+            if (0 <= idx && idx < rdf->size())
+                bins[idx]++;
         }
     }
     

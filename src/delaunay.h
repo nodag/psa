@@ -57,14 +57,12 @@ private:
     std::vector<Site> sites;    // The vertices and their replications
     Point_2 clip[2];            // Optional clipping box for vertex replications
     
+    void SetVertex(int i, const Point_2 &point);
+    void ClearVertex(int i);
+
 public:
     Delaunay(const std::vector<Point_2> &points, bool clip_heuristic = false);
-    
-    void SetVertex(int i, const Point_2 &point, const FH &face, bool setup = false);
-    void ClearVertex(int i);
-    
-    inline VH GetVertex(int i) { return sites[i].vertex; };
-    inline int NumVertices() const { return sites.size(); };
+    ~Delaunay();
 
     void GetStatistics(Statistics *stats) const;
     void Save(const char *fname, bool points = true, bool debug = false) const;

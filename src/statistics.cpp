@@ -156,14 +156,15 @@ void SpectralStatistics(std::vector<PointSet> &sets, int npoints, Statistics *st
     const int nsets = (int) sets.size();
     const int nbins = 100 * sqrtf(npoints);
     Curve avgrp(nbins, 0, 0.5f * npoints);
-    avgrp.SetZero();
+    Curve rdf(nbins, 0, 0.5f);
+    Curve rp(nbins, 0, 0.5f * npoints);
     
     if (nsets > 1) PrintProgress("Stats", 0);
     for (int i = 0; i < nsets; ++i) {
-        Curve rdf(nbins, 0, 0.5f);
+        rdf.SetZero();
         sets[i].RDF(&rdf);
         
-        Curve rp(nbins, 0, 0.5f * npoints);
+        rp.SetZero();
         RDFtoRP(rdf, npoints, &rp);
         avgrp.Accumulate(rp);
         

@@ -48,14 +48,19 @@ Delaunay::Delaunay(const std::vector<Point_2> &points, bool clip_heuristic) {
     // Add points one-by-one to DT
     sites.resize(points.size());
     for (int i = 0; i < (int) points.size(); ++i)
-        SetVertex(i, points[i], FH(), true);
+        SetVertex(i, points[i]);
 }
 
-void Delaunay::SetVertex(int i, const Point_2 &point, const FH &face, bool setup) {
-    Site site;
+Delaunay::~Delaunay()
+{
+    
+}
+
+void Delaunay::SetVertex(int i, const Point_2 &point) {
+    assert(i < (int) sites.size());
     // Insert original vertex
-    VH v = setup ? dt.insert(point) : dt.insert(point, face);
-    site.vertex = v;
+    VH v = dt.insert(point);
+    sites[i].vertex = v;
     // Insert replications
     for (int u = -1; u <= 1; ++u) {
         for (int v = -1; v <= 1; ++v) {
@@ -71,13 +76,11 @@ void Delaunay::SetVertex(int i, const Point_2 &point, const FH &face, bool setup
             if (lt == DT::VERTEX) continue;
             
             // Insert replicate
-            VH r = setup ? dt.insert(p, lt, loc, li)
-                         : dt.insert(p, FH());
-            site.replications[site.nreplications] = r;
-            site.nreplications++;
+            VH r = dt.insert(p, lt, loc, li);
+            sites[i].replications[sites[i].nreplications] = r;
+            sites[i].nreplications++;
         }
     }
-    sites[i] = site;
 }
 
 void Delaunay::ClearVertex(int i) {

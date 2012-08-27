@@ -38,6 +38,7 @@ Spectrum::Spectrum(int size) {
 
 Spectrum& Spectrum::operator= (const Spectrum &s) {
     this->size = s.size;
+    if (this->ft) delete this->ft;
     this->ft = new float[size * size * 2];
     memcpy(this->ft, s.ft, size * size * 2 * sizeof(float));
     return *this;

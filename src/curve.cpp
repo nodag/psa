@@ -38,7 +38,7 @@ Curve::Curve(int size, float x0, float x1) {
     this->x0 = x0;
     this->x1 = x1;
     dx = (x1 - x0) / size;
-    y.resize(size);
+    y.resize(size, 0);
 }
 
 void Curve::Accumulate(const Curve &c) {

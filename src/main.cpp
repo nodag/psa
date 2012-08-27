@@ -81,7 +81,7 @@ int main(int argc, char * const argv[])
         exit(0);
     }
     
-    Config config = LoadConfig("config/psa.cfg");
+    Config config = LoadConfig("common/psa.cfg");
     
     if (params.GetBool("avg"))
         AnalysisAverage(input, params, config);

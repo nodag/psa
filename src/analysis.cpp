@@ -62,7 +62,6 @@ void Analysis(std::vector<std::string> &files, ParamList &params,
     
     Result r;
     Periodogram p;
-    Spectrum s;
     
     // Process files
     for (unsigned int i = 0; i < files.size(); ++i) {
@@ -78,7 +77,7 @@ void Analysis(std::vector<std::string> &files, ParamList &params,
         
         // Fourier transform if necessary
         if (ft) {
-            s = Spectrum(ftsize);
+            Spectrum s(ftsize);
             Spectrum::PointSetSpectrum(&s, r.points, npoints);
             p = Periodogram(s);
             p.Divide(npoints);
@@ -137,7 +136,6 @@ void AnalysisAverage(std::vector<std::string> &files, ParamList &params,
     
     Result r;
     Periodogram p(ftsize);
-    Spectrum s;
     
     int nbins = config.rbinsize * npoints;
     r.rdf = Curve(nbins, 0, maxdist);
@@ -153,7 +151,7 @@ void AnalysisAverage(std::vector<std::string> &files, ParamList &params,
         
         // Fourier transform if necessary
         if (ft) {
-            s = Spectrum(ftsize);
+            Spectrum s(ftsize);
             Spectrum::PointSetSpectrum(&s, points, npoints);
             p.Accumulate(Periodogram(s));
         }

@@ -34,8 +34,8 @@ public:
     
     Periodogram() { periodogram = NULL; size = 0; }
     Periodogram(int size);
-    Periodogram& operator= (const Periodogram &p);
     Periodogram(const Spectrum &s);
+    Periodogram& operator= (const Periodogram &p);
     ~Periodogram() { if (periodogram) delete[] periodogram; }
     
     void Accumulate(const Periodogram &p);

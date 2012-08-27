@@ -32,13 +32,6 @@ Periodogram::Periodogram(int size) {
         periodogram[i] = 0;
 }
 
-Periodogram& Periodogram::operator= (const Periodogram &p) {
-    this->size = p.size;
-    this->periodogram = new float[size * size];
-    memcpy(this->periodogram, p.periodogram, size * size * sizeof(float));
-    return *this;
-}
-
 Periodogram::Periodogram(const Spectrum &s) {
     this->size = s.size;
     this->periodogram = new float[size * size];
@@ -49,6 +42,14 @@ Periodogram::Periodogram(const Spectrum &s) {
             periodogram[x + y*size] = u*u + v*v;
         }
     }
+}
+
+Periodogram& Periodogram::operator= (const Periodogram &p) {
+    this->size = p.size;
+    if (this->periodogram) delete[] periodogram;
+    this->periodogram = new float[size * size];
+    memcpy(this->periodogram, p.periodogram, size * size * sizeof(float));
+    return *this;
 }
 
 void Periodogram::Accumulate(const Periodogram &p) {
@@ -70,7 +71,7 @@ void Periodogram::Anisotropy(Curve *ani) const {
     this->RadialPower(&rp);
     // Now determine anisotropy curve
     const int size2 = size / 2;
-    std::vector<unsigned long> Nr(ani->size());
+    std::vector<unsigned long> Nr(ani->size(), 0);
     ani->SetZero();
     // Measure variance within each ring
     for (int x = 0; x < size; ++x) {
@@ -97,7 +98,7 @@ void Periodogram::Anisotropy(Curve *ani) const {
 
 void Periodogram::RadialPower(Curve *rp) const {
     const int size2 = size / 2;
-    std::vector<unsigned long> Nr(rp->size());
+    std::vector<unsigned long> Nr(rp->size(), 0);
     rp->SetZero();
     // Add each power component to the corresponding ring
     for (int x = 0; x < size; ++x) {

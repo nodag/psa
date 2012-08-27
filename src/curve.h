@@ -22,6 +22,7 @@
 #ifndef CURVE_H
 #define CURVE_H
 
+#include <iostream>
 #include <string>
 #include <vector>
 
