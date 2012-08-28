@@ -1,9 +1,6 @@
 ###################### user-configuration section #######################
 INC := -I/usr/local/include
-INC += -I/usr/local/Cellar/cairo/1.12.2/include
-
 LIB := -L/usr/local/lib
-LIB += -L/usr/local/Cellar/cairo/1.12.2/lib
 
 # set HAVE_CGAL to 0 to build without CGAL support; psa will then omit
 # the computation of the bond-orientational order (BOO)

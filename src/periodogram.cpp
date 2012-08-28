@@ -80,10 +80,11 @@ void Periodogram::Anisotropy(Curve *ani) const {
             int cy = abs(y - size2);
             float r = sqrtf(cx*cx + cy*cy);
             int i = ani->ToIndex(r);
-            assert(i < ani->size());
-            (*ani)[i] += (periodogram[x + y*size] - rp[i]) *
-                         (periodogram[x + y*size] - rp[i]);
-            Nr[i]++;
+            if (i < ani->size()) {
+                (*ani)[i] += (periodogram[x + y*size] - rp[i]) *
+                             (periodogram[x + y*size] - rp[i]);
+                Nr[i]++;
+            }
         }
     }
     // Normalize and convert to decibel
@@ -107,9 +108,10 @@ void Periodogram::RadialPower(Curve *rp) const {
             int cy = abs(y - size2);
             float r = sqrtf(cx*cx + cy*cy);
             int i = rp->ToIndex(r);
-            assert(i < rp->size());
-            (*rp)[i] += periodogram[x + y*size];
-            Nr[i]++;
+            if (i < rp->size()) {
+                (*rp)[i] += periodogram[x + y*size];
+                Nr[i]++;
+            }
         }
     }
     // Normalize
