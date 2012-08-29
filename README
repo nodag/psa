@@ -62,7 +62,7 @@ for a list of available options.
 
                                 File Formats
 
-Point set files are supported in three flavours:
+Point set files are supported in three flavors:
 
 - TXT: plain text files with a pair of coordinates for each point
 - RPS: raw single-precision floating point data
