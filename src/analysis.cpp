@@ -199,7 +199,7 @@ void AnalysisAverage(std::vector<std::string> &files, ParamList &params,
         r.ani = Curve(nbins, 0, maxfreq);
         p.Anisotropy(&r.ani);
     }
-    if (params.GetBool("spectrum") || summary) {
+    if (params.GetBool("pspectrum") || summary) {
         r.spectrum = Image(ftsize, ftsize);
         p.ToImage(&r.spectrum);
         r.spectrum.ToneMap(true);
