@@ -175,7 +175,7 @@ void SaveSummary(const std::string &fname, Result &result, Config &config)
         cairo_show_text(cr, label);
         ++i;
     }
-	snprintf(label, len, "Gbl. Mindist   %.5f", result.stats.mindist * rnorm);
+    snprintf(label, len, "Gbl. Mindist   %.5f", result.stats.mindist * rnorm);
     cairo_move_to(cr, tanchor[0], tanchor[1] + i * offset * csize); ++i;
     cairo_show_text(cr, label);
     snprintf(label, len, "Avg. Mindist   %.5f", result.stats.avgmindist * rnorm);

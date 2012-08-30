@@ -122,7 +122,7 @@ inline float j0f(float f) {
         if (x < 1.0e-3f)
             return (1.f - 0.25f*z);
         return (z - DR1) * Polynomial(z, JP, 5);
-	}
+    }
     float q = 1.f / x;
     float w = sqrtf(q);
     float p = w * Polynomial(q, MO, 8);

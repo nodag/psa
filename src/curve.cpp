@@ -163,7 +163,7 @@ void Curve::SaveTEX(const std::string &fname, std::string labels[2],
             x0 * xscale, yrange[0], x1 * xscale, yrange[1]);
     fprintf(fp, "  \\node[below=0.4cm,text height=10pt,text depth=3pt] at (%f,%f) {%s};\n",
             (x0 + (x1 - x0) / 2.f) * xscale, yrange[0], labels[0].c_str());
-    fprintf(fp, "  \\node[rotate=9	0,above=0.5cm,text height=10pt,text depth=3pt] at (%f,%f) {%s};\n",
+    fprintf(fp, "  \\node[rotate=90,above=0.5cm,text height=10pt,text depth=3pt] at (%f,%f) {%s};\n",
             x0 * xscale, yrange[0] + (yrange[1] - yrange[0]) / 2.f, labels[1].c_str());
     fprintf(fp, "\\end{tikzpicture}\n");
     fprintf(fp, "\\end{document}\n");
