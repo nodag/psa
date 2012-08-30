@@ -98,7 +98,7 @@ v1.0
 - 1D measures are now written as TEX source files based on the TIKZ package
   for cleaner integration into larger documents and potential final touches
 - Added options to generate every measure separately
-- Added configuration file 'config/psa.cfg' for most important variables
+- Added configuration file 'common/psa.cfg' for most important variables
 - Can now directly read points from certain EPS files next to TXT and RPS
 - Added option --convert to convert points between these formats
 - Dropped need for fftw-library
