@@ -52,6 +52,10 @@ static inline float Integrate(const Curve &c) {
     return Integrate(c, c.x0, c.x1);
 }
 
+static inline float RingArea(float x0, float x1) {
+    return PI * (x1*x1 - x0*x0);
+}
+
 static float EffectiveNyquist(const Curve &rp, int npoints) {
     Curve cumpower(rp);
     for (int i = 0; i < cumpower.size(); ++i)
@@ -73,20 +77,29 @@ static float EffectiveNyquist(const Curve &rp, int npoints) {
     return 0;
 }
 
-static float OscillationsMetric(const Curve &rp, int npoints, float effnyq) {
+static float OscillationsMetric(const Curve &rp, int npoints) {
+    // nuosci: lowest frequency v for which P(v) ~ 1
+    float nuosci = 0.0, maxp = 0.0;
+    for (int i = 0; i < rp.size() && maxp < 0.98; ++i) {
+        float p = rp[i];
+        if (p > maxp) {
+            maxp = p;
+            nuosci = rp.ToX(i);
+        }
+    }
+    
+    float npeaks = 10.f;
     float maxfreq = sqrtf(npoints) / 2;
-    float x0 = 2 * effnyq;
-    float x1 = std::min(40.f * maxfreq, rp.x1);
+    float x0 = nuosci;
+    float x1 = std::min(x0 + npeaks * maxfreq, rp.x1);
     
     Curve osci(rp);
     for (int i = 0; i < osci.size(); ++i) {
         float nu = osci.ToX(i);
         osci[i] = nu < x0 ? 0.f : (osci[i] - 1.f) * (osci[i] - 1.f) * nu;
     }
-    float a = 100.f * TWOPI * Integrate(osci, x0, x1);
-    float b = x1*x1 - x0*x0;
-    return sqrtf(a / b);
-
+    
+    return 10.f * sqrtf(TWOPI * Integrate(osci, x0, x1) / RingArea(x0, x1));
 }
 
 static inline float BlackmanWindow(float x, float xlim) {
@@ -174,6 +187,6 @@ void SpectralStatistics(std::vector<PointSet> &sets, int npoints, Statistics *st
     if (nsets > 1) std::cout << std::endl;
     
     stats->effnyquist = EffectiveNyquist(avgrp, npoints);
-    stats->oscillations = OscillationsMetric(avgrp, npoints, stats->effnyquist);
+    stats->oscillations = OscillationsMetric(avgrp, npoints);
 }
 
