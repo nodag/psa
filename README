@@ -87,6 +87,9 @@ Copyright (C) 2011 and 2012
 
 
                               Version History
+v1.1
+- Made oscillations metric independent of effective Nyquist frequency
+
 v1.0
 - psa has been totally rewritten
 - Added new statistics: effective Nyquist frequency, oscillations metric, and
