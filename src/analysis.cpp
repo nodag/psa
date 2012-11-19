@@ -77,7 +77,7 @@ void Analysis(std::vector<std::string> &files, ParamList &params,
         
         // Fourier transform if necessary
         if (ft) {
-            Spectrum s(ftsize);
+            Spectrum s(ftsize * 2);
             Spectrum::PointSetSpectrum(&s, r.points, npoints);
             p = Periodogram(s);
             p.Divide(npoints);
@@ -89,9 +89,8 @@ void Analysis(std::vector<std::string> &files, ParamList &params,
         if (params.GetBool("spectral") || params.GetBool("stats") || summary)
             SpectralStatistics(r.points, npoints, &r.stats);
         if (params.GetBool("rp") || summary) {
-            float maxfreq = SQRT2 * ftsize / 2;
-            int nbins = maxfreq * config.fbinsize;
-            r.rp = Curve(nbins, 0, maxfreq);
+            int nbins = ftsize * config.fbinsize;
+            r.rp = Curve(nbins, 0, ftsize);
             p.RadialPower(&r.rp);
         }
         if (params.GetBool("rdf") || summary) {
@@ -101,13 +100,12 @@ void Analysis(std::vector<std::string> &files, ParamList &params,
             r.points.RDF(&r.rdf);
         }
         if (params.GetBool("ani") || summary) {
-            float maxfreq = SQRT2 * ftsize / 2;
-            int nbins = maxfreq * config.fbinsize;
-            r.ani = Curve(nbins, 0, maxfreq);
+            int nbins = ftsize * config.fbinsize;
+            r.ani = Curve(nbins, 0, ftsize);
             p.Anisotropy(&r.ani);
         }
         if (params.GetBool("pspectrum") || summary) {
-            r.spectrum = Image(ftsize, ftsize);
+            r.spectrum = Image(ftsize * 2, ftsize * 2);
             p.ToImage(&r.spectrum);
             r.spectrum.ToneMap(true);
         }
@@ -135,7 +133,7 @@ void AnalysisAverage(std::vector<std::string> &files, ParamList &params,
     const float maxdist = config.rrange / rnorm;
     
     Result r;
-    Periodogram p(ftsize);
+    Periodogram p(ftsize * 2);
     
     int nbins = config.rbinsize * npoints;
     r.rdf = Curve(nbins, 0, maxdist);
@@ -151,7 +149,7 @@ void AnalysisAverage(std::vector<std::string> &files, ParamList &params,
         
         // Fourier transform if necessary
         if (ft) {
-            Spectrum s(ftsize);
+            Spectrum s(ftsize * 2);
             Spectrum::PointSetSpectrum(&s, points, npoints);
             p.Accumulate(Periodogram(s));
         }
@@ -188,19 +186,17 @@ void AnalysisAverage(std::vector<std::string> &files, ParamList &params,
         SpectralStatistics(sets, npoints, &r.stats);
     }
     if (params.GetBool("rp") || summary) {
-        float maxfreq = SQRT2 * ftsize / 2;
-        int nbins = maxfreq * config.fbinsize;
-        r.rp = Curve(nbins, 0, maxfreq);
+        int nbins = ftsize * config.fbinsize;
+        r.rp = Curve(nbins, 0, ftsize);
         p.RadialPower(&r.rp);
     }
     if (params.GetBool("ani") || summary) {
-        float maxfreq = SQRT2 * ftsize / 2;
-        int nbins = maxfreq * config.fbinsize;
-        r.ani = Curve(nbins, 0, maxfreq);
+        int nbins = ftsize * config.fbinsize;
+        r.ani = Curve(nbins, 0, ftsize);
         p.Anisotropy(&r.ani);
     }
     if (params.GetBool("pspectrum") || summary) {
-        r.spectrum = Image(ftsize, ftsize);
+        r.spectrum = Image(ftsize * 2, ftsize * 2);
         p.ToImage(&r.spectrum);
         r.spectrum.ToneMap(true);
     }

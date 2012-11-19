@@ -28,7 +28,7 @@
 Config LoadConfig(const std::string &fname) {
     // Default config
     Config config;
-    config.frange   = 15;
+    config.frange   = 10;
     config.fbinsize =  0.5;
     config.rrange   =  8;
     config.rbinsize =  0.125;
