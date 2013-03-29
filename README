@@ -11,7 +11,7 @@ statistics important for sampling problems in computer graphics. These
 statistics include:
 
 - Global minimum distance (smallest separation between any two points)
-- Average minimum distance (average nearest-neighbour distance)
+- Average minimum distance (average nearest-neighbor distance)
 - Bond-orientational order (similarity to the hexagonal lattice)
 - Effective Nyquist frequency (equivalent to Nyq. freq. in uniform sampling)
 - Oscillations (metric for potential aliasing caused by the point set)
@@ -24,8 +24,8 @@ statistics include:
 For more information regarding these measures, consult our papers:
 
   Daniel Heck, Thomas Schl\"omer, Oliver Deussen:
-  Aliasing-Free Blue Noise Sampling.
-  Technical Report, University of Konstanz, August 2012.
+  Blue Noise Sampling with Controlled Aliasing.
+  ACM Transactions on Graphics, to appear, 2013.
 
   Thomas Schl\"omer, Oliver Deussen:
   Accurate Spectral Analysis of Two-Dimensional Point Sets.
@@ -50,13 +50,19 @@ is then omitted. psa also makes use of OpenMP if available.
                                    Usage
 
 Type
+
   ./psa filename [options]
+
 to analyze the given file(s). When called without any parameters, psa
 generates a single PDF containing all measures. Use --avg if you want to
 average all measures over the given files, e.g.
+
   ./psa --avg points/mypoints*.txt
+
 Type
+
   ./psa --help
+
 for a list of available options.
 
 
@@ -81,14 +87,14 @@ see the file COPYING. This software has been partially funded by DFG, German
 Research Foundation, and the PhD Program 'Explorative Analysis and
 Visualization of Large Information Spaces'.
 
-Copyright (C) 2011 and 2012
+Copyright (C) 2011-2013
   Thomas Schl\"omer (thomas.schloemer@uni-konstanz.de)
   Daniel Heck (daniel.heck@uni-konstanz.de)
 
 
                               Version History
 v1.1
-- Made oscillations metric independent of effective Nyquist frequency
+- Made oscillations metric independent of effective Nyquist frequency; the metric is now in line with the upcoming ACM TOG paper
 
 v1.0
 - psa has been totally rewritten
