@@ -1,6 +1,7 @@
 ###################### user-configuration section #######################
 INC := -I/usr/local/include
 LIB := -L/usr/local/lib
+MARCH := -m64
 
 # set HAVE_CGAL to 0 to build without CGAL support; psa will then omit
 # the computation of the bond-orientational order (BOO)
@@ -10,7 +11,6 @@ HAVE_CGAL := 1
 CXX := g++
 CXXFLAGS := -Wall -fopenmp
 OPTFLAGS := -O2
-MARCH := -m64
 LINKFLAGS := -lcairo
 DEFS :=
 ifeq ($(HAVE_CGAL),1)
@@ -36,8 +36,7 @@ $(OBJDIR)/%.cpp.o : $(SRCDIR)/%.cpp
 	$(VERBOSE)$(CXX) $(CXXFLAGS) $(MARCH) $(DEFS) $(INC) -o $@ -c $<
 
 $(TARGET): makedir $(OBJS) Makefile
-	$(VERBOSE)$(CXX) $(CXXFLAGS) $(INC) $(OPTFLAGS) $(LINKFLAGS) \
-	-o $(TARGET) $(LIB) $(OBJS)
+	$(VERBOSE)$(CXX) $(CXXFLAGS) $(OPTFLAGS) $(OBJS) $(LINKFLAGS) $(LIB) -o $(TARGET)
 
 makedir:
 	$(VERBOSE)mkdir -p $(OBJDIR)

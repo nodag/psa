@@ -93,6 +93,9 @@ Copyright (C) 2011-2013
 
 
                               Version History
+v1.1a
+- Fixed some Linux/gcc compile issues
+
 v1.1
 - Made oscillations metric independent of effective Nyquist frequency; the metric is now in line with the upcoming ACM TOG paper
 

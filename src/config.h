@@ -22,6 +22,7 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+#include <stdlib.h>
 #include <string>
 
 // Config
