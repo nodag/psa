@@ -31,10 +31,9 @@ For more information regarding these measures, consult our papers:
   Accurate Spectral Analysis of Two-Dimensional Point Sets.
   Journal of Graphics, GPU, and Game Tools, 15:3, 152-160, 2011.
 
-The latest version of psa can always be found at http://psa.googlecode.com.
+The latest version of psa can always be found at https://github.com/nodag/psa.
 Any suggestions regarding the concepts or the implementation of psa are very
-welcome. Feel free to contact us:
-  thomas.schloemer@uni-konstanz.de, daniel.heck@uni-konstanz.de.
+welcome. Feel free to contact us via http://thomas-schloemer.org.
 
 
                                Dependencies
@@ -87,9 +86,9 @@ see the file COPYING. This software has been partially funded by DFG, German
 Research Foundation, and the PhD Program 'Explorative Analysis and
 Visualization of Large Information Spaces'.
 
-Copyright (C) 2011-2013
-  Thomas Schl\"omer (thomas.schloemer@uni-konstanz.de)
-  Daniel Heck (daniel.heck@uni-konstanz.de)
+Copyright (C) 2011-2015
+  Thomas Schl\"omer
+  Daniel Heck
 
 
                               Version History
